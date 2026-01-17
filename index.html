@@ -12,40 +12,52 @@
     <link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
-    <div class="container">
-        <h1>Plate Calculator</h1>
+    <div class="app-container">
+        <div class="header">
+            <h1>💪 PLATE CALCULATOR</h1>
+        </div>
         
-        <div class="input-section">
-            <label for="bar-weight">Bar Weight</label>
-            <div class="input-group">
-                <input type="number" id="bar-weight" value="45" min="0" step="5">
-                <span class="unit">lbs</span>
-            </div>
-        </div>
-
-        <div class="input-section">
-            <label for="target-weight">Target Weight</label>
-            <div class="input-group">
-                <input type="number" id="target-weight" value="290" min="0" step="5">
-                <span class="unit">lbs</span>
-            </div>
-        </div>
-
-        <button id="calculate-btn">Calculate</button>
-
-        <div id="result-section" class="result-section">
-            <div class="plate-display" id="plate-display">
-                <div class="bar-container">
-                    <div class="bar-sleeve">
-                        <span class="bar-weight">45</span>
-                    </div>
-                    <div id="plates-container"></div>
+        <div class="input-card">
+            <div class="input-row">
+                <label for="bar-weight">Bar Weight</label>
+                <div class="input-wrapper">
+                    <input type="number" id="bar-weight" value="45" min="0" step="5">
+                    <span class="unit-badge">lbs</span>
                 </div>
             </div>
-            <p class="instruction">Put these plates on each side</p>
+
+            <div class="input-row">
+                <label for="target-weight">Target Weight</label>
+                <div class="input-wrapper">
+                    <input type="number" id="target-weight" value="290" min="0" step="5">
+                    <span class="unit-badge">lbs</span>
+                </div>
+            </div>
+
+            <button id="calculate-btn" class="calc-btn">CALCULATE</button>
         </div>
 
-        <div id="error-message" class="error-message"></div>
+        <div id="result-section" class="result-card">
+            <div class="weight-summary">
+                <div class="summary-item">
+                    <span class="label">Per Side</span>
+                    <span class="value" id="per-side-weight">122.5 lbs</span>
+                </div>
+            </div>
+
+            <div class="plate-visualization">
+                <div class="barbell">
+                    <div class="bar-sleeve">
+                        <div class="bar-weight-label" id="bar-label">45</div>
+                    </div>
+                    <div id="plates-container" class="plates-stack"></div>
+                </div>
+            </div>
+            
+            <div class="instruction-text">Put these plates on EACH side</div>
+        </div>
+
+        <div id="error-message" class="error-banner"></div>
     </div>
 
     <script src="app.js"></script>
