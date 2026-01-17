@@ -4,8 +4,8 @@
   "description": "Calculate barbell plate loading",
   "start_url": "/Plate-calculator/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#5856d6",
+  "background_color": "#0f0f0f",
+  "theme_color": "#ff0000",
   "orientation": "portrait",
   "icons": [
     {
