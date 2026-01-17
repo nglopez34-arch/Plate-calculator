@@ -4,6 +4,8 @@ const calculateBtn = document.getElementById('calculate-btn');
 const resultSection = document.getElementById('result-section');
 const platesContainer = document.getElementById('plates-container');
 const errorMessage = document.getElementById('error-message');
+const perSideWeight = document.getElementById('per-side-weight');
+const barLabel = document.getElementById('bar-label');
 
 const PLATE_SIZES = [45, 35, 25, 10, 5, 2.5];
 
@@ -11,36 +13,39 @@ function calculatePlates() {
     const barWeight = parseFloat(barWeightInput.value) || 0;
     const targetWeight = parseFloat(targetWeightInput.value) || 0;
     
+    // Clear previous errors
     errorMessage.classList.remove('visible');
     errorMessage.textContent = '';
     
-    if (targetWeight < barWeight) {
-        showError('Target weight must be greater than bar weight');
+    // Validation
+    if (targetWeight <= 0 || barWeight < 0) {
+        showError('Please enter valid weights');
         return;
     }
     
+    if (targetWeight < barWeight) {
+        showError('Target weight must be greater than or equal to bar weight');
+        return;
+    }
+    
+    // Calculate weight per side
     const weightToLoad = targetWeight - barWeight;
     const weightPerSide = weightToLoad / 2;
     
-    if (weightPerSide < 0) {
-        showError('Invalid weight configuration');
-        return;
-    }
-    
+    // Get plate configuration
     const plates = getPlateConfiguration(weightPerSide);
     
     if (plates === null) {
-        showError('Cannot make exact weight with available plates');
+        showError(`Cannot make exact weight with available plates. Try ${Math.round(targetWeight / 5) * 5} lbs instead.`);
         return;
     }
     
-    // Update bar weight display
-    const barWeightDisplay = document.querySelector('.bar-weight');
-    if (barWeightDisplay) {
-        barWeightDisplay.textContent = barWeight;
-    }
-    
+    // Update display
+    perSideWeight.textContent = `${weightPerSide.toFixed(1)} lbs`;
+    barLabel.textContent = barWeight;
     displayPlates(plates);
+    
+    // Show result
     resultSection.classList.add('visible');
 }
 
@@ -48,15 +53,17 @@ function getPlateConfiguration(weightPerSide) {
     const plates = [];
     let remaining = weightPerSide;
     
+    // Greedy algorithm to find plates
     for (const plateWeight of PLATE_SIZES) {
-        while (remaining >= plateWeight - 0.01) {
+        while (remaining >= plateWeight - 0.01) { // Small tolerance for floating point
             plates.push(plateWeight);
             remaining -= plateWeight;
         }
     }
     
+    // Check if we got exact weight
     if (remaining > 0.01) {
-        return null;
+        return null; // Cannot make exact weight
     }
     
     return plates;
@@ -64,6 +71,17 @@ function getPlateConfiguration(weightPerSide) {
 
 function displayPlates(plates) {
     platesContainer.innerHTML = '';
+    
+    if (plates.length === 0) {
+        const noPlatesMsg = document.createElement('div');
+        noPlatesMsg.style.padding = '20px';
+        noPlatesMsg.style.color = '#666';
+        noPlatesMsg.style.fontSize = '18px';
+        noPlatesMsg.style.fontWeight = '700';
+        noPlatesMsg.textContent = 'No plates needed';
+        platesContainer.appendChild(noPlatesMsg);
+        return;
+    }
     
     plates.forEach(weight => {
         const plateDiv = document.createElement('div');
@@ -79,19 +97,24 @@ function showError(message) {
     resultSection.classList.remove('visible');
 }
 
+// Event listeners
 calculateBtn.addEventListener('click', calculatePlates);
 
 targetWeightInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         calculatePlates();
+        e.target.blur();
     }
 });
 
 barWeightInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         calculatePlates();
+        e.target.blur();
     }
 });
 
-// Calculate on load
-calculatePlates();
+// Calculate on page load
+window.addEventListener('load', () => {
+    calculatePlates();
+});
