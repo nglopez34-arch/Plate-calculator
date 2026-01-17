@@ -214,19 +214,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .bar-sleeve {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #d4d4d4 0%, #8a8a8a 50%, #d4d4d4 100%);
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 12px;
-    box-shadow: 
-        inset 0 4px 8px rgba(0,0,0,0.2),
-        0 4px 12px rgba(0,0,0,0.3);
-    flex-shrink: 0;
-    border: 2px solid #666;
+    display: none;
 }
 
 .bar-weight-label {
