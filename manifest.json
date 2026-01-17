@@ -1,23 +1,22 @@
 {
-  "name": "Plate Calculator",
-  "short_name": "Plates",
-  "description": "Calculate barbell plate loading",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#5856d6",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+“name”: “Plate Calculator”,
+“short_name”: “Plates”,
+“description”: “Calculate barbell plate loading”,
+“start_url”: “/Plate-calculator/”,
+“display”: “standalone”,
+“background_color”: “#000000”,
+“theme_color”: “#5856d6”,
+“orientation”: “portrait”,
+“icons”: [
+{
+“src”: “/Plate-calculator/icon-192.png”,
+“sizes”: “192x192”,
+“type”: “image/png”
+},
+{
+“src”: “/Plate-calculator/icon-512.png”,
+“sizes”: “512x512”,
+“type”: “image/png”
 }
-
+]
+}
